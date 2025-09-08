@@ -637,7 +637,7 @@ export const authService = {
 
       // Try to send OTP via backend API first
       try {
-        const response = await fetch('http://localhost:5001/api/users/send-otp', {
+        const response = await fetch('http://localhost:5000/api/users/send-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -688,7 +688,7 @@ export const authService = {
 
       // Try backend verification first
       try {
-        const response = await fetch('http://localhost:5001/api/users/verify-otp', {
+        const response = await fetch('http://localhost:5000/api/users/verify-otp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -789,7 +789,7 @@ export const authService = {
 
       // Try to fetch real shops from backend API first
       try {
-        const response = await fetch(`http://localhost:5001/api/users/shops/by-pincode?pincode=${userPincode}`);
+        const response = await fetch(`http://localhost:5000/api/users/shops/by-pincode?pincode=${userPincode}`);
         
         if (response.ok) {
           const result = await response.json();

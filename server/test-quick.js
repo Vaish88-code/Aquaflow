@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const API_BASE = 'http://localhost:5001';
+const API_BASE = 'http://localhost:5000';
 
 async function testAPI() {
   console.log('🧪 Testing AquaFlow API endpoints...\n');

@@ -119,7 +119,7 @@ const ShopSelection = () => {
     
     try {
       const attemptPlaceOrder = async (bearerToken: string) => {
-        const response = await fetch('http://localhost:5001/api/users/orders', {
+        const response = await fetch('http://localhost:5000/api/users/orders', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
@@ -154,14 +154,14 @@ const ShopSelection = () => {
       if (!ok && (result?.message === 'Invalid token.' || result?.message === 'Access denied. No token provided.')) {
         try {
           // 1) Send OTP
-          await fetch('http://localhost:5001/api/users/send-otp', {
+          await fetch('http://localhost:5000/api/users/send-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phoneNumber: user.contactNumber, pincode: user.pincode })
           });
 
           // 2) Verify OTP (backend uses 123456 in dev)
-          const verifyRes = await fetch('http://localhost:5001/api/users/verify-otp', {
+          const verifyRes = await fetch('http://localhost:5000/api/users/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phoneNumber: user.contactNumber, otp: '123456' })
@@ -209,12 +209,12 @@ const ShopSelection = () => {
       // Ensure valid user token; if missing/invalid, auto-login via OTP
       let token = localStorage.getItem('token');
       if (!token) {
-        await fetch('http://localhost:5001/api/users/send-otp', {
+        await fetch('http://localhost:5000/api/users/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phoneNumber: user.contactNumber, pincode: user.pincode })
         });
-        const verifyRes = await fetch('http://localhost:5001/api/users/verify-otp', {
+        const verifyRes = await fetch('http://localhost:5000/api/users/verify-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phoneNumber: user.contactNumber, otp: '123456' })
@@ -240,12 +240,12 @@ const ShopSelection = () => {
         const msg = (response && response.message) || '';
         if (msg === 'Invalid token.' || msg === 'Access denied. No token provided.') {
           try {
-            await fetch('http://localhost:5001/api/users/send-otp', {
+            await fetch('http://localhost:5000/api/users/send-otp', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ phoneNumber: user.contactNumber, pincode: user.pincode })
             });
-            const verifyRes = await fetch('http://localhost:5001/api/users/verify-otp', {
+            const verifyRes = await fetch('http://localhost:5000/api/users/verify-otp', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ phoneNumber: user.contactNumber, otp: '123456' })
@@ -339,6 +339,7 @@ const ShopSelection = () => {
           <p className="text-sm text-gray-500 mt-1">
             Delivering to: {user?.address}
           </p>
+          
         </div>
 
         {/* Filters */}

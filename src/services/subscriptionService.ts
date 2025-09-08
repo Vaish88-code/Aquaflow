@@ -49,7 +49,7 @@ interface CreateSubscriptionData {
 
 // Real-time data from backend - no mock data needed
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 // Helper function to generate monthly bills from subscription data
 const generateMonthlyBillsFromSubscriptions = (subscriptions: any[]): MonthlyBill[] => {

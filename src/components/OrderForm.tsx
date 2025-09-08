@@ -40,26 +40,28 @@ const OrderForm = ({ shop, onOrderPlaced, onClose }: OrderFormProps) => {
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/users/orders', {
+      const orderData = {
+        shopId: shop._id,
+        quantity,
+        deliveryAddress: {
+          address: deliveryAddress,
+          landmark: '',
+          coordinates: {
+            latitude: 0,
+            longitude: 0
+          }
+        },
+        paymentMethod: 'cash',
+        notes
+      };
+
+      const response = await fetch('http://localhost:5000/api/users/orders', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          shopId: shop._id,
-          quantity,
-          deliveryAddress: {
-            address: deliveryAddress,
-            landmark: '',
-            coordinates: {
-              latitude: 0,
-              longitude: 0
-            }
-          },
-          paymentMethod: 'cash',
-          notes
-        }),
+        body: JSON.stringify(orderData)
       });
 
       const result = await response.json();

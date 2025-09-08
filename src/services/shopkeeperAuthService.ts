@@ -33,7 +33,7 @@ interface AuthResponse {
 }
 
 // Backend API base URL
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 // Send verification email using EmailJS
 const sendVerificationEmail = async (email: string, name: string, verificationCode: string): Promise<boolean> => {
