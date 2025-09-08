@@ -24,7 +24,7 @@ app.use(helmet());
 
 // CORS
 const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? ['https://yourdomain.com']
+  ? ['https://aquaflowi.netlify.app']
   : [/^http:\/\/localhost:\d+$/]; // allow any localhost port in dev (e.g., 5173, 5176)
 
 app.use(cors({
