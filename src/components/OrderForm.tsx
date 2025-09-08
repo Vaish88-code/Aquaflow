@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { Package, MapPin, IndianRupee, Clock, User, Phone } from 'lucide-react';
 
@@ -34,7 +35,7 @@ const OrderForm = ({ shop, onOrderPlaced, onClose }: OrderFormProps) => {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem('token');
       if (!token) {
         alert('Please login to place an order');
         return;
@@ -55,7 +56,7 @@ const OrderForm = ({ shop, onOrderPlaced, onClose }: OrderFormProps) => {
         notes
       };
 
-      const response = await fetch('http://localhost:5000/api/users/orders', {
+      const response = await fetch(`${API_BASE_URL}/users/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
