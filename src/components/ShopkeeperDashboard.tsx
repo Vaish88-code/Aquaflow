@@ -138,7 +138,35 @@ const ShopkeeperDashboard = () => {
     const parsedShopkeeper = JSON.parse(shopkeeperData);
     setShopkeeper(parsedShopkeeper);
     setEditedShopData(parsedShopkeeper);
-    fetchDashboardData(parsedShopkeeper.id);
+
+    // Always refresh latest profile from server on load
+    (async () => {
+      try {
+        const profile = await shopkeeperService.getProfile(token);
+        if (profile?.success && profile.data) {
+          const latest = {
+            id: profile.data.shopkeeper.id,
+            email: profile.data.shopkeeper.email,
+            ownerName: profile.data.shopkeeper.ownerName,
+            shopName: profile.data.shop?.shopName || parsedShopkeeper.shopName,
+            contactNumber: profile.data.shopkeeper.phoneNumber,
+            address: profile.data.shop?.address || parsedShopkeeper.address,
+            pincode: profile.data.shop?.pincode || parsedShopkeeper.pincode,
+            state: profile.data.shop?.state || parsedShopkeeper.state,
+            city: profile.data.shop?.city || parsedShopkeeper.city,
+            gstNumber: profile.data.shop?.gstNumber || parsedShopkeeper.gstNumber,
+            pricePerJar: profile.data.shop?.pricePerJar ?? parsedShopkeeper.pricePerJar,
+            photoUrl: profile.data.shop?.photoUrl || parsedShopkeeper.photoUrl,
+            rating: profile.data.shop?.rating ?? parsedShopkeeper.rating,
+            totalReviews: profile.data.shop?.totalReviews ?? parsedShopkeeper.totalReviews
+          } as any;
+          setShopkeeper(latest);
+          setEditedShopData(latest);
+          localStorage.setItem('shopkeeper', JSON.stringify(latest));
+        }
+      } catch {}
+      fetchDashboardData(parsedShopkeeper.id);
+    })();
 
     // Lightweight polling for near real-time updates
     const intervalId = setInterval(() => {

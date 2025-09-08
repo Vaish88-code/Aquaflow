@@ -102,21 +102,10 @@ const ShopkeeperLogin = () => {
       const response = await shopkeeperAuthService.registerShopkeeper(registrationData);
 
       if (response.success) {
-        // Check if registration includes token (auto-login)
-        if (response.data.token) {
-          // Auto-login after registration
-          localStorage.setItem('shopToken', response.data.token);
-          localStorage.setItem('shopkeeper', JSON.stringify(response.data.shopkeeper));
-          setSuccessMessage('Registration successful! Redirecting to dashboard...');
-          setTimeout(() => {
-            navigate('/shopkeeper-dashboard');
-          }, 1000);
-        } else {
-          // Manual login required
-          setMode('login');
-          setLoginData({ email: registrationData.email, password: '' });
-          setSuccessMessage('Registration successful! You can now login with your email and password.');
-        }
+        // Always require explicit login after registration
+        setMode('login');
+        setLoginData({ email: registrationData.email, password: '' });
+        setSuccessMessage('Registration successful! Please login with your email and password.');
         setError('');
         setRegistrationData({
           ownerName: '',
