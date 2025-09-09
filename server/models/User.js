@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
   },
+  password: { type: String, select: false },
   pincode: {
     type: String,
     required: true,
@@ -67,11 +68,12 @@ const userSchema = new mongoose.Schema({
 // Index for geospatial queries and pincode-based searches
 userSchema.index({ "addresses.coordinates": "2dsphere" });
 userSchema.index({ pincode: 1 });
+// Make email unique when present
+userSchema.index({ email: 1 }, { unique: true, sparse: true });
 
 // Hash password before saving (if password field is added later)
 userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  
+  if (!this.isModified('password') || !this.password) return next();
   try {
     const salt = await bcrypt.genSalt(12);
     this.password = await bcrypt.hash(this.password, salt);

@@ -7,6 +7,8 @@ const { verifyUser } = require('../middleware/auth');
 // Public routes
 router.post('/send-otp', validate('sendOTP'), userController.sendOTP);
 router.post('/verify-otp', validate('verifyOTP'), userController.verifyOTP);
+router.post('/register', validate('userRegister'), userController.registerWithPassword);
+router.post('/login', validate('userLogin'), userController.loginWithPassword);
 
 // Protected routes
 router.get('/shops', verifyUser, userController.getNearbyShops);

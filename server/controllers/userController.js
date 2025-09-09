@@ -3,6 +3,7 @@ const Shop = require('../models/Shop');
 const Order = require('../models/Order');
 const Complaint = require('../models/Complaint');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { sendOTP, verifyOTP } = require('../utils/otpService');
 const { sendSMS } = require('../utils/smsService');
 
@@ -436,5 +437,54 @@ module.exports.submitComplaint = async (req, res) => {
   } catch (e) {
     console.error('submitComplaint error', e);
     return res.status(500).json({ success: false, message: 'Failed to submit complaint' });
+  }
+};
+
+// Email/password registration
+module.exports.registerWithPassword = async (req, res) => {
+  try {
+    const { name, email, password, phoneNumber, pincode, address } = req.validatedData;
+    const existing = await User.findOne({ email: email.toLowerCase() });
+    if (existing) {
+      return res.status(400).json({ success: false, message: 'User already exists with this email' });
+    }
+    const existingPhone = await User.findOne({ phoneNumber });
+    if (existingPhone) {
+      // Allow same phone for OTP users; still prevent duplicate phones for now
+      return res.status(400).json({ success: false, message: 'User already exists with this phone number' });
+    }
+
+    const user = new User({
+      name,
+      email: email.toLowerCase(),
+      password,
+      phoneNumber,
+      pincode,
+      addresses: address ? [{ type: 'home', address, isDefault: true }] : []
+    });
+    await user.save();
+    const token = generateToken(user._id, 'user');
+    return res.status(201).json({ success: true, message: 'Registered successfully', data: { token, user: { id: user._id, email: user.email, name: user.name } } });
+  } catch (e) {
+    console.error('registerWithPassword error', e);
+    return res.status(500).json({ success: false, message: 'Registration failed' });
+  }
+};
+
+// Email/password login
+module.exports.loginWithPassword = async (req, res) => {
+  try {
+    const { email, password } = req.validatedData;
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    if (!user || !user.password) {
+      return res.status(400).json({ success: false, message: 'Invalid email or password' });
+    }
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return res.status(400).json({ success: false, message: 'Invalid email or password' });
+    const token = generateToken(user._id, 'user');
+    return res.json({ success: true, message: 'Login successful', data: { token, user: { id: user._id, email: user.email, name: user.name } } });
+  } catch (e) {
+    console.error('loginWithPassword error', e);
+    return res.status(500).json({ success: false, message: 'Login failed' });
   }
 };
