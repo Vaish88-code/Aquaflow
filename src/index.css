@@ -11,4 +11,6 @@
   .mobile-tabs { display: block !important; }
   .desktop-tabs { display: none !important; }
   .hide-on-mobile { display: none !important; }
+  /* keep bottom bar fixed on some Android browsers */
+  .mobile-tabs { position: fixed !important; bottom: 0; left: 0; right: 0; }
 }

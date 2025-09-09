@@ -142,7 +142,7 @@ const UserDashboard = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 sm:pb-8 flex-1 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 sm:pb-8 flex-1 w-full">
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
@@ -167,54 +167,54 @@ const UserDashboard = () => {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
           <Link
             to="/shops"
-            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            className="bg-white rounded-xl shadow-lg p-5 sm:p-6 hover:shadow-xl transition-all duration-200"
           >
             <div className="flex items-center space-x-3">
               <div className="bg-sky-100 p-3 rounded-lg">
                 <Plus className="h-6 w-6 text-sky-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">New Order</h3>
-                <p className="text-sm text-gray-600">Place a new order</p>
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words">New Order</h3>
+                <p className="text-xs sm:text-sm text-gray-600 leading-snug">Place a new order</p>
               </div>
             </div>
           </Link>
 
           <Link
             to="/subscriptions"
-            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            className="bg-white rounded-xl shadow-lg p-5 sm:p-6 hover:shadow-xl transition-all duration-200"
           >
             <div className="flex items-center space-x-3">
               <div className="bg-purple-100 p-3 rounded-lg">
                 <Calendar className="h-6 w-6 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Subscriptions</h3>
-                <p className="text-sm text-gray-600">Monthly plans & billing</p>
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words">Subscriptions</h3>
+                <p className="text-xs sm:text-sm text-gray-600 leading-snug">Monthly plans & billing</p>
               </div>
             </div>
           </Link>
 
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-white rounded-xl shadow-lg p-5 sm:p-6">
             <div className="flex items-center space-x-3">
               <div className="bg-green-100 p-3 rounded-lg">
                 <MapPin className="h-6 w-6 text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Addresses</h3>
-                <p className="text-sm text-gray-600">Manage locations</p>
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words">Addresses</h3>
+                <p className="text-xs sm:text-sm text-gray-600 leading-snug">Manage locations</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-white rounded-xl shadow-lg p-5 sm:p-6">
             <div className="flex items-center space-x-3">
               <div className="bg-blue-100 p-3 rounded-lg">
                 <Receipt className="h-6 w-6 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Billing</h3>
-                <p className="text-sm text-gray-600">Payment history</p>
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words">Billing</h3>
+                <p className="text-xs sm:text-sm text-gray-600 leading-snug">Payment history</p>
               </div>
             </div>
           </div>
