@@ -10,6 +10,7 @@ import ShopSelection from './components/ShopSelection';
 import UserDashboard from './components/UserDashboard';
 import SubscriptionDashboard from './components/SubscriptionDashboard';
 import HydrationInsights from './components/HydrationInsights';
+import Addresses from './components/Addresses';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/shops" element={<ShopSelection />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/subscriptions" element={<SubscriptionDashboard />} />
+          <Route path="/addresses" element={<Addresses />} />
           <Route path="/insights" element={<HydrationInsights />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />

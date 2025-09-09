@@ -201,7 +201,7 @@ const UserDashboard = () => {
                 <MapPin className="h-6 w-6 text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words">Addresses</h3>
+                <Link to="/addresses" className="font-semibold text-gray-900 text-base sm:text-lg leading-tight break-words hover:text-sky-600 transition-colors">Addresses</Link>
                 <p className="text-xs sm:text-sm text-gray-600 leading-snug">Manage locations</p>
               </div>
             </div>
