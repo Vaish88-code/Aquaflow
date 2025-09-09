@@ -1,6 +1,7 @@
 const Shopkeeper = require('../models/Shopkeeper');
 const Shop = require('../models/Shop');
 const Order = require('../models/Order');
+const Complaint = require('../models/Complaint');
 const Subscription = require('../models/Subscription');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
@@ -820,4 +821,18 @@ module.exports = {
   updateOrderStatus,
   getOrderStats,
   recordSubscriptionDelivery
+};
+
+// Additional handler for complaints
+module.exports.getComplaints = async (req, res) => {
+  try {
+    const shopkeeperId = req.user.id;
+    const shop = await Shop.findOne({ shopkeeperId });
+    if (!shop) return res.status(404).json({ success: false, message: 'Shop not found' });
+    const complaints = await Complaint.find({ shopId: shop._id }).sort({ createdAt: -1 });
+    return res.json({ success: true, data: { complaints } });
+  } catch (e) {
+    console.error('getComplaints error', e);
+    return res.status(500).json({ success: false, message: 'Failed to fetch complaints' });
+  }
 };

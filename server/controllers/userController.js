@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Shop = require('../models/Shop');
 const Order = require('../models/Order');
+const Complaint = require('../models/Complaint');
 const jwt = require('jsonwebtoken');
 const { sendOTP, verifyOTP } = require('../utils/otpService');
 const { sendSMS } = require('../utils/smsService');
@@ -396,5 +397,44 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ success: false, message: 'Error fetching shops', error: error.message });
     }
+  }
+};
+
+// Additional handlers appended to module.exports
+module.exports.submitComplaint = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    const { subject, description, priority, orderId, shopId } = req.body;
+
+    if (!subject || !description) {
+      return res.status(400).json({ success: false, message: 'Subject and description are required.' });
+    }
+
+    let resolvedShopId = shopId;
+    if (!resolvedShopId && orderId) {
+      const order = await Order.findById(orderId).select('shopId');
+      resolvedShopId = order?.shopId;
+    }
+    if (!resolvedShopId) {
+      const latest = await Order.findOne({ userId }).sort({ createdAt: -1 }).select('shopId');
+      resolvedShopId = latest?.shopId;
+    }
+    if (!resolvedShopId) {
+      return res.status(400).json({ success: false, message: 'Could not determine shop for this complaint.' });
+    }
+
+    const complaint = await Complaint.create({
+      userId,
+      orderId: orderId || undefined,
+      shopId: resolvedShopId,
+      subject,
+      description,
+      priority: priority || 'medium',
+    });
+
+    return res.json({ success: true, message: 'Complaint submitted', data: { complaint } });
+  } catch (e) {
+    console.error('submitComplaint error', e);
+    return res.status(500).json({ success: false, message: 'Failed to submit complaint' });
   }
 };

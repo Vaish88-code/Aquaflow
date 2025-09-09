@@ -12,6 +12,7 @@ router.post('/verify-otp', validate('verifyOTP'), userController.verifyOTP);
 router.get('/shops', verifyUser, userController.getNearbyShops);
 router.get('/shops/by-pincode', userController.getShopsByPincode);
 router.post('/orders', verifyUser, userController.placeOrder);
+router.post('/complaints', verifyUser, userController.submitComplaint);
 
 // Public fallback: by state/pincode
 router.get('/shops/by-location', userController.getShopsByLocation);

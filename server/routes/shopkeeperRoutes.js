@@ -18,6 +18,7 @@ router.put('/update-shop', verifyToken, validate('updateShopDetails'), shopkeepe
 router.get('/orders', verifyToken, shopkeeperController.getShopOrders);
 router.get('/orders/stats', verifyToken, shopkeeperController.getOrderStats);
 router.put('/orders/:orderId/status', verifyToken, shopkeeperController.updateOrderStatus);
+router.get('/complaints', verifyToken, shopkeeperController.getComplaints);
 // Record subscription deliveries
 router.post('/subscriptions/:subscriptionId/deliver', verifyToken, shopkeeperController.recordSubscriptionDelivery);
 
