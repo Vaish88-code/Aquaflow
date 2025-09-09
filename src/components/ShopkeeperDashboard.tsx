@@ -351,7 +351,7 @@ const ShopkeeperDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-right hidden sm:block">
+              <div className="text-right hide-on-mobile">
                 <p className="text-sm text-gray-600">Welcome back!</p>
                 <p className="text-sm font-medium text-gray-900">{shopkeeper?.ownerName}</p>
                 <p className="text-xs text-gray-500">{shopkeeper?.shopName}</p>
