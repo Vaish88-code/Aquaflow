@@ -123,7 +123,7 @@ const UserDashboard = () => {
               <span className="text-2xl font-bold text-gray-900">AquaFlow</span>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-right">
+              <div className="text-right hide-on-mobile">
                 <p className="text-sm text-gray-600">Welcome back!</p>
                 <p className="text-sm font-medium text-gray-900">{user?.name}</p>
                 <p className="text-xs text-gray-500">{user?.email}</p>
@@ -142,13 +142,13 @@ const UserDashboard = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 sm:pb-8 flex-1 w-full">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
             Welcome, {user?.name}!
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base sm:text-lg">
             Manage your water orders and subscriptions
           </p>
           <div className="mt-2 flex items-center space-x-2 text-sm text-gray-500">
@@ -164,7 +164,7 @@ const UserDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
           <Link
             to="/shops"
             className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
@@ -222,7 +222,7 @@ const UserDashboard = () => {
 
         {/* Insights CTA */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h2 className="text-2xl font-bold text-gray-900">Hydration Insights</h2>
             <Link to="/insights" className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">View Details</Link>
           </div>
@@ -254,10 +254,10 @@ const UserDashboard = () => {
               </Link>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {orders.map((order) => (
                 <div key={order._id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <h3 className="font-semibold text-gray-900">#{order.orderNumber}</h3>
@@ -411,6 +411,22 @@ const UserDashboard = () => {
         </div>
       </div>
       <Footer />
+      {/* Mobile bottom nav */}
+      <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-50 mobile-tabs">
+        <nav className="grid grid-cols-4">
+          {[ 
+            { to: '/shops', label: 'Order', icon: Plus },
+            { to: '/subscriptions', label: 'Subs', icon: Calendar },
+            { to: '/dashboard', label: 'Home', icon: Droplets },
+            { to: '/insights', label: 'Insights', icon: Bell },
+          ].map((item) => (
+            <Link key={item.label} to={item.to} className="flex flex-col items-center justify-center py-2 text-xs text-gray-600">
+              <item.icon className="h-5 w-5 mb-0.5" />
+              <span>{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+      </div>
     </div>
   );
 };
