@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Inline override to ensure mobile tabs show and desktop tabs hide up to 900px */
+      @media (max-width: 900px) {
+        .mobile-tabs { display: block !important; }
+        .desktop-tabs { display: none !important; }
+        .hide-on-mobile { display: none !important; }
+      }
+    </style>
     <title>AquaFlow - Smart Water Jar Delivery</title>
   </head>
   <body>
