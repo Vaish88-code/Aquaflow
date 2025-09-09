@@ -5,3 +5,9 @@
 /* hide scrollbars on mobile tab strip */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Force mobile tabs visible and header tabs hidden on small screens in case of stale CSS */
+@media (max-width: 639px) {
+  .mobile-tabs { display: block !important; }
+  .desktop-tabs { display: none !important; }
+}

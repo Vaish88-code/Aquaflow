@@ -491,7 +491,7 @@ const ShopkeeperDashboard = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="bg-white rounded-xl shadow-lg mb-8 hidden sm:block">
+        <div className="bg-white rounded-xl shadow-lg mb-8 hidden sm:block desktop-tabs">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-4 sm:space-x-8 px-2 sm:px-6 overflow-x-auto whitespace-nowrap -mx-2 sm:mx-0 snap-x snap-mandatory scrollbar-hide">
               {[
@@ -948,7 +948,7 @@ const ShopkeeperDashboard = () => {
       </div>
 
       {/* Mobile bottom tab bar */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-50">
+      <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-50 mobile-tabs">
         <nav className="grid grid-cols-5">
           {[ 
             { id: 'overview', icon: TrendingUp, label: 'Overview' },
