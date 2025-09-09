@@ -351,7 +351,7 @@ const ShopkeeperDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-right">
+              <div className="text-right hidden sm:block">
                 <p className="text-sm text-gray-600">Welcome back!</p>
                 <p className="text-sm font-medium text-gray-900">{shopkeeper?.ownerName}</p>
                 <p className="text-xs text-gray-500">{shopkeeper?.shopName}</p>
@@ -493,7 +493,7 @@ const ShopkeeperDashboard = () => {
         {/* Navigation Tabs */}
         <div className="bg-white rounded-xl shadow-lg mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-4 sm:space-x-8 px-2 sm:px-6 overflow-x-auto whitespace-nowrap -mx-2 sm:mx-0 snap-x snap-mandatory">
+            <nav className="flex space-x-4 sm:space-x-8 px-2 sm:px-6 overflow-x-auto whitespace-nowrap -mx-2 sm:mx-0 snap-x snap-mandatory scrollbar-hide">
               {[
                 { id: 'overview', label: 'Overview', icon: TrendingUp },
                 { id: 'subscriptions', label: 'Subscription Users', icon: Users },
