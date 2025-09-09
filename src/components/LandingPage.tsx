@@ -19,6 +19,12 @@ const LandingPage = () => {
               <Link to="/contact" className="text-gray-600 hover:text-sky-600 transition-colors">Contact</Link>
             </nav>
           </div>
+          {/* Mobile quick nav */}
+          <nav className="md:hidden mt-3 -mx-2 px-2 overflow-x-auto whitespace-nowrap">
+            <a href="#features" className="inline-block mr-4 text-gray-700 bg-gray-100 px-3 py-2 rounded-lg text-sm">Features</a>
+            <Link to="/about" className="inline-block mr-4 text-gray-700 bg-gray-100 px-3 py-2 rounded-lg text-sm">About</Link>
+            <Link to="/contact" className="inline-block mr-4 text-gray-700 bg-gray-100 px-3 py-2 rounded-lg text-sm">Contact</Link>
+          </nav>
         </div>
       </header>
 

@@ -271,7 +271,7 @@ const SubscriptionDashboard = () => {
               </Link>
             </div>
           ) : (
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
               {subscriptions.map((subscription) => (
                 <div key={subscription._id} className="bg-white rounded-xl shadow-lg p-6">
                   <div className="flex items-center justify-between mb-4">

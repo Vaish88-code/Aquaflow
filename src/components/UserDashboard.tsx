@@ -164,7 +164,7 @@ const UserDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
           <Link
             to="/shops"
             className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
@@ -231,7 +231,7 @@ const UserDashboard = () => {
 
         {/* Recent Orders */}
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Recent Orders</h2>
             <Link
               to="/shops"
@@ -257,7 +257,7 @@ const UserDashboard = () => {
             <div className="space-y-4">
               {orders.map((order) => (
                 <div key={order._id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <h3 className="font-semibold text-gray-900">#{order.orderNumber}</h3>
@@ -269,7 +269,7 @@ const UserDashboard = () => {
                       <p className="text-sm text-gray-600 mb-1">{order.shopId?.shopName}</p>
                       <p className="text-xs text-gray-500">{order.shopId?.address}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-left sm:text-right">
                       <p className="font-semibold text-gray-900">₹{order.totalAmount}</p>
                       <p className="text-sm text-gray-600">{order.quantity} jars</p>
                       <p className="text-xs text-gray-500">

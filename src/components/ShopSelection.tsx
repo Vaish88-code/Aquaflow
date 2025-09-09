@@ -302,8 +302,8 @@ const ShopSelection = () => {
               <Droplets className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold text-gray-900">AquaFlow</span>
             </Link>
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="text-right hidden xs:block">
                 <p className="text-sm text-gray-600">Welcome, {user?.name}!</p>
                 <p className="text-xs text-gray-500">{user?.email}</p>
               </div>
@@ -368,7 +368,7 @@ const ShopSelection = () => {
 
         {/* Shops Grid */}
         {shops.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {shops.map((shop) => (
               <div
                 key={shop._id}

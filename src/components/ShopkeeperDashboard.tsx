@@ -493,7 +493,7 @@ const ShopkeeperDashboard = () => {
         {/* Navigation Tabs */}
         <div className="bg-white rounded-xl shadow-lg mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
+            <nav className="flex space-x-6 sm:space-x-8 px-4 sm:px-6 overflow-x-auto">
               {[
                 { id: 'overview', label: 'Overview', icon: TrendingUp },
                 { id: 'subscriptions', label: 'Subscription Users', icon: Users },
@@ -504,7 +504,7 @@ const ShopkeeperDashboard = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors ${
+                  className={`flex items-center space-x-2 py-3 sm:py-4 border-b-2 font-medium text-sm transition-colors flex-shrink-0 ${
                     activeTab === tab.id
                       ? 'border-sky-500 text-sky-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -522,7 +522,7 @@ const ShopkeeperDashboard = () => {
         <div className="space-y-6">
           {/* Overview Tab */}
           {activeTab === 'overview' && (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <div className="bg-white rounded-xl shadow-lg p-6">
                 <div className="flex items-center space-x-3">
                   <div className="bg-blue-100 p-3 rounded-lg">
