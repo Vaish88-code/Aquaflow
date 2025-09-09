@@ -164,7 +164,7 @@ const UserDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8">
           <Link
             to="/shops"
             className="bg-white rounded-xl shadow-lg p-5 sm:p-6 hover:shadow-xl transition-all duration-200"
@@ -221,7 +221,7 @@ const UserDashboard = () => {
         </div>
 
         {/* Insights CTA */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h2 className="text-2xl font-bold text-gray-900">Hydration Insights</h2>
             <Link to="/insights" className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">View Details</Link>
