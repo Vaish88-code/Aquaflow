@@ -604,33 +604,22 @@ export const shopkeeperService = {
   // Get complaints for the shop
   async getComplaints(shopkeeperId: string): Promise<ApiResponse> {
     try {
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      const mockComplaints = [
-        {
-          _id: 'complaint1',
-          userId: {
-            name: 'Bob Wilson',
-            email: 'bob@example.com',
-            contactNumber: '+919876543212'
-          },
-          subject: 'Late delivery',
-          description: 'Order was delivered 2 hours late',
-          status: 'open',
-          priority: 'medium',
-          createdAt: new Date().toISOString()
-        }
-      ];
+      const token = localStorage.getItem('shopToken');
+      if (!token) {
+        return { success: false, message: 'Authentication token not found' };
+      }
 
-      return {
-        success: true,
-        data: {
-          complaints: mockComplaints,
-          total: mockComplaints.length,
-          openComplaints: mockComplaints.filter(c => c.status === 'open').length,
-          resolvedComplaints: mockComplaints.filter(c => c.status === 'resolved').length
+      // Fetch complaints assigned to this shop from backend
+      const response = await fetch(`${API_BASE_URL}/shopkeeper/complaints`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         }
-      };
+      });
+
+      const result = await response.json();
+      return result;
     } catch (error) {
       console.error('Error fetching complaints:', error);
       return {

@@ -329,19 +329,32 @@ const UserDashboard = () => {
                 if (!user) return;
                 setSubmittingComplaint(true);
                 try {
-                  const res = await shopkeeperService.submitComplaint({
+                  // Find the latest order to infer current shopId
+                  const history = await authService.getOrderHistory();
+                  const latestOrder = history?.data?.orders?.[0];
+                  const payload: any = {
                     user: { name: user.name, email: user.email, contactNumber: user.contactNumber },
                     subject: complaintSubject,
                     description: complaintDescription,
-                    priority: complaintPriority
-                  });
-                  if (res.success) {
+                    priority: complaintPriority,
+                    orderId: latestOrder?._id,
+                    shopId: latestOrder?.shopId?._id
+                  };
+                  const res = await fetch(`${((import.meta as any).env?.VITE_API_BASE_URL) || 'http://localhost:5000/api'}/users/complaints`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                    },
+                    body: JSON.stringify(payload)
+                  }).then(r => r.json());
+                  if (res?.success) {
                     setComplaintSubject('');
                     setComplaintDescription('');
                     setComplaintPriority('medium');
                     alert('Complaint submitted successfully');
                   } else {
-                    alert('Failed to submit complaint');
+                    alert(res?.message || 'Failed to submit complaint');
                   }
                 } catch (e) {
                   alert('Error submitting complaint');
