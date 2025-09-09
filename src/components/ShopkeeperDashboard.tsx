@@ -493,7 +493,7 @@ const ShopkeeperDashboard = () => {
         {/* Navigation Tabs */}
         <div className="bg-white rounded-xl shadow-lg mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-6 sm:space-x-8 px-4 sm:px-6 overflow-x-auto">
+            <nav className="flex space-x-4 sm:space-x-8 px-2 sm:px-6 overflow-x-auto whitespace-nowrap -mx-2 sm:mx-0 snap-x snap-mandatory">
               {[
                 { id: 'overview', label: 'Overview', icon: TrendingUp },
                 { id: 'subscriptions', label: 'Subscription Users', icon: Users },
@@ -504,14 +504,14 @@ const ShopkeeperDashboard = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-3 sm:py-4 border-b-2 font-medium text-sm transition-colors flex-shrink-0 ${
+                  className={`flex items-center space-x-2 py-3 sm:py-4 px-3 sm:px-0 border-b-2 font-medium text-sm transition-colors flex-shrink-0 snap-start ${
                     activeTab === tab.id
                       ? 'border-sky-500 text-sky-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
                   }`}
                 >
                   <tab.icon className="h-4 w-4" />
-                  <span>{tab.label}</span>
+                  <span className="hidden sm:inline">{tab.label}</span>
                 </button>
               ))}
             </nav>
