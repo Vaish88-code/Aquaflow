@@ -91,16 +91,6 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📱 Environment: ${process.env.NODE_ENV}`);
-  // Optional: seed demo data when SEED_DEMO=true
-  if (process.env.SEED_DEMO === 'true') {
-    try {
-      const { spawn } = require('child_process');
-      const proc = spawn(process.execPath, ['scripts/seedDemo.js'], { cwd: __dirname, stdio: 'inherit' });
-      proc.on('close', (code) => console.log(`seedDemo exited with code ${code}`));
-    } catch (e) {
-      console.error('Failed to run seedDemo:', e);
-    }
-  }
 });
 
 module.exports = app;
