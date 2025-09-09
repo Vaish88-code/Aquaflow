@@ -370,7 +370,7 @@ const ShopkeeperDashboard = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 sm:pb-8 flex-1 w-full">
         {/* Shop Info Card */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -491,7 +491,7 @@ const ShopkeeperDashboard = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="bg-white rounded-xl shadow-lg mb-8">
+        <div className="bg-white rounded-xl shadow-lg mb-8 hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-4 sm:space-x-8 px-2 sm:px-6 overflow-x-auto whitespace-nowrap -mx-2 sm:mx-0 snap-x snap-mandatory scrollbar-hide">
               {[
@@ -945,6 +945,30 @@ const ShopkeeperDashboard = () => {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Mobile bottom tab bar */}
+      <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-50">
+        <nav className="grid grid-cols-5">
+          {[ 
+            { id: 'overview', icon: TrendingUp, label: 'Overview' },
+            { id: 'subscriptions', icon: Users, label: 'Subs' },
+            { id: 'orders', icon: Package, label: 'Orders' },
+            { id: 'complaints', icon: MessageSquare, label: 'Compl.' },
+            { id: 'settings', icon: Settings, label: 'Settings' },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex flex-col items-center justify-center py-2 text-xs ${
+                activeTab === item.id ? 'text-sky-600' : 'text-gray-500'
+              }`}
+            >
+              <item.icon className="h-5 w-5 mb-0.5" />
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
       </div>
 
       {/* Complaint Modal */}
