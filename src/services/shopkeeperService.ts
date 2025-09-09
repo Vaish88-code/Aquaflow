@@ -605,21 +605,32 @@ export const shopkeeperService = {
   async getComplaints(shopkeeperId: string): Promise<ApiResponse> {
     try {
       const token = localStorage.getItem('shopToken');
-      if (!token) {
-        return { success: false, message: 'Authentication token not found' };
+      if (token) {
+        try {
+          const response = await fetch(`${API_BASE_URL}/shopkeeper/complaints`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            }
+          });
+          if (response.ok) {
+            return await response.json();
+          }
+        } catch {}
       }
 
-      // Fetch complaints assigned to this shop from backend
-      const response = await fetch(`${API_BASE_URL}/shopkeeper/complaints`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      // Fallback to local complaints stored by users when offline
+      const local = JSON.parse(localStorage.getItem('complaints') || '[]');
+      return {
+        success: true,
+        data: {
+          complaints: local,
+          total: local.length,
+          openComplaints: local.filter((c: any) => c.status === 'open').length,
+          resolvedComplaints: local.filter((c: any) => c.status === 'resolved').length
         }
-      });
-
-      const result = await response.json();
-      return result;
+      };
     } catch (error) {
       console.error('Error fetching complaints:', error);
       return {

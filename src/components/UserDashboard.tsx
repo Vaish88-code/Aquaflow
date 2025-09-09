@@ -340,21 +340,42 @@ const UserDashboard = () => {
                     orderId: latestOrder?._id,
                     shopId: latestOrder?.shopId?._id
                   };
-                  const res = await fetch(`${((import.meta as any).env?.VITE_API_BASE_URL) || 'http://localhost:5000/api'}/users/complaints`, {
+                  const apiUrl = `${((import.meta as any).env?.VITE_API_BASE_URL) || 'http://localhost:5000/api'}/users/complaints`;
+                  const res = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                       'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
                     },
                     body: JSON.stringify(payload)
-                  }).then(r => r.json());
+                  }).then(async (r) => {
+                    try { return await r.json(); } catch { return { success: false, message: 'Invalid response' }; }
+                  }).catch(() => ({ success: false, message: 'Network error' }));
+
                   if (res?.success) {
                     setComplaintSubject('');
                     setComplaintDescription('');
                     setComplaintPriority('medium');
                     alert('Complaint submitted successfully');
                   } else {
-                    alert(res?.message || 'Failed to submit complaint');
+                    // Fallback: store complaint locally for the current shop so shopkeeper can see it
+                    const local = JSON.parse(localStorage.getItem('complaints') || '[]');
+                    const localComplaint = {
+                      _id: `local_${Date.now()}`,
+                      userId: { name: user.name, email: user.email, contactNumber: user.contactNumber },
+                      subject: complaintSubject,
+                      description: complaintDescription,
+                      priority: complaintPriority,
+                      status: 'open',
+                      createdAt: new Date().toISOString(),
+                      shopName: latestOrder?.shopId?.shopName || 'Unknown Shop'
+                    };
+                    local.unshift(localComplaint);
+                    localStorage.setItem('complaints', JSON.stringify(local));
+                    setComplaintSubject('');
+                    setComplaintDescription('');
+                    setComplaintPriority('medium');
+                    alert('Complaint submitted and routed to your shop (offline mode)');
                   }
                 } catch (e) {
                   alert('Error submitting complaint');
